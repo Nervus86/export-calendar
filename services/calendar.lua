@@ -4,10 +4,13 @@ local function getFilteredEvents()
   local events = {}
   local currTime = C_DateAndTime.GetCurrentCalendarTime()
   local numEvents = C_Calendar.GetNumDayEvents(0, currTime.monthDay)
-  for i = 1, numEvents do
-    local event = C_Calendar.GetDayEvent(0, currTime.monthDay, i)
-    if (event.calendarType == 'PLAYER' or event.calendarType == 'GUILD_EVENT' or event.calendarType == 'COMMUNITY_EVENT') then
-      table.insert(events, event)
+  for ii = 0, 7 do
+    local numEvents = C_Calendar.GetNumDayEvents(0, currTime.monthDay+ii)
+    for i = 1, numEvents do
+      local event = C_Calendar.GetDayEvent(0, currTime.monthDay+ii, i)
+      if (event.calendarType == 'PLAYER' or event.calendarType == 'GUILD_EVENT' or event.calendarType == 'COMMUNITY_EVENT') then
+        table.insert(events, event)
+      end
     end
   end
   return events
