@@ -4,7 +4,7 @@ local function getFilteredEvents()
   local events = {}
   local currTime = C_DateAndTime.GetCurrentCalendarTime()
   local numEvents = C_Calendar.GetNumDayEvents(0, currTime.monthDay)
-  for ii = 0, 7 do
+  for ii = -7, 7 do
     local numEvents = C_Calendar.GetNumDayEvents(0, currTime.monthDay+ii)
     for i = 1, numEvents do
       local event = C_Calendar.GetDayEvent(0, currTime.monthDay+ii, i)
@@ -32,7 +32,7 @@ function calendarService.getInviteList(eventID, callback)
     local numInv = C_Calendar.GetNumInvites()
     for i = 1, numInv do
       local invite = C_Calendar.EventGetInvite(i)
-      local inviteInList = { invite.name, CalendarUtil.GetCalendarInviteStatusInfo(invite.inviteStatus).name }
+      local inviteInList = { invite.name, invite.classFilename, CalendarUtil.GetCalendarInviteStatusInfo(invite.inviteStatus).name }
       list[i] = inviteInList
     end
     callback(list)
