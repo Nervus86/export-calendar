@@ -4,7 +4,9 @@ local function getFilteredEvents()
   local events = {}
   local currTime = C_DateAndTime.GetCurrentCalendarTime()
   local numEvents = C_Calendar.GetNumDayEvents(0, currTime.monthDay)
-  for ii = -7, 7 do
+  local startDay=-7
+  if currTime.monthDay<7 then startDay = 0 end
+  for ii = startDay, 7 do
     local numEvents = C_Calendar.GetNumDayEvents(0, currTime.monthDay+ii)
     for i = 1, numEvents do
       local event = C_Calendar.GetDayEvent(0, currTime.monthDay+ii, i)
